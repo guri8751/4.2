@@ -1,0 +1,82 @@
+int LED_RED = A0;
+int LED_BLUE = A1;
+int LED_GREEN = A2;
+
+int traffic(String command);
+
+void setup() 
+{
+    Particle.function("traffic",traffic);
+    pinMode(LED_RED, OUTPUT);
+    pinMode(LED_BLUE, OUTPUT);
+    pinMode(LED_GREEN, OUTPUT);
+}
+void loop() {
+
+}
+
+void SIGNAL_RED()
+{
+    digitalWrite(LED_RED,HIGH);
+    digitalWrite(LED_BLUE,LOW);
+    digitalWrite(LED_GREEN,LOW);
+    
+
+}
+void SIGNAL_GREEN()
+{
+    digitalWrite(LED_GREEN,HIGH);
+    digitalWrite(LED_RED,LOW);
+    digitalWrite(LED_BLUE,LOW);
+}
+
+void BLUESIGNAL()
+{
+    digitalWrite(LED_BLUE,HIGH);
+    digitalWrite(LED_RED,LOW);
+    digitalWrite(LED_GREEN,LOW);
+}
+int traffic(String command)
+{
+  if(command == "red")
+  {
+    SIGNAL_RED();
+    return 1;
+  }
+  else if(command=="green")
+  {
+      SIGNAL_GREEN();
+      return 1;   
+  }
+  else if(command=="blue")
+  {
+      SIGNAL_BLUE();
+      return 1;
+      
+  }
+      
+}
+
+//HTML CODE
+
+<!DOCTYPE>
+<html>
+  <body>
+  <center>
+  <br>
+  <br>
+  <br>
+  <form action="https://api.particle.io/v1/devices/e00fce68ef52ebb2e75d3da3/traffic?access_token=203b9fdetc022cd57bc78c228fad29b6c96f8368" method="POST">
+    Select which traffic signal to light up!<br>
+    <br>
+    <input type="radio" name="arg" value="red">RED LED.
+    <br>
+    <input type="radio" name="arg" value="green">GREEN LED.
+    <br>
+    <input type="radio" name="arg" value="blue">BLUE LED.
+    <br>
+    <input type="submit" value="Submit!">
+  </form>
+  </center>
+  </body>
+</html>
